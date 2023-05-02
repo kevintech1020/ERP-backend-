@@ -136,6 +136,7 @@ model saleInvoice {
   user               user                 @relation(fields: [user_id], references: [id])
   returnSaleInvoice  returnSaleInvoice[]
   saleInvoiceProduct saleInvoiceProduct[]
+  transaction        transaction[]
 }
 
 model saleInvoiceProduct {
@@ -151,19 +152,21 @@ model saleInvoiceProduct {
 }
 
 model transaction {
-  id          Int        @id @default(autoincrement())
-  date        DateTime
-  debit_id    Int
-  credit_id   Int
-  particulars String
-  amount      Float
-  type        String?
-  related_id  Int?
-  status      Boolean    @default(true)
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @updatedAt
-  credit      subAccount @relation("credit", fields: [credit_id], references: [id], onDelete: Cascade)
-  debit       subAccount @relation("debit", fields: [debit_id], references: [id], onDelete: Cascade)
+  id            Int          @id @default(autoincrement())
+  date          DateTime
+  debit_id      Int
+  credit_id     Int
+  particulars   String
+  amount        Float
+  type          String?
+  related_id    Int?
+  status        Boolean      @default(true)
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+  saleInvoiceId Int?
+  credit        subAccount   @relation("credit", fields: [credit_id], references: [id], onDelete: Cascade)
+  debit         subAccount   @relation("debit", fields: [debit_id], references: [id], onDelete: Cascade)
+  saleInvoice   saleInvoice? @relation(fields: [related_id], references: [id])
 }
 
 model role {

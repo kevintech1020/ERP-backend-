@@ -7,7 +7,8 @@ const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 const schema = require('./schema/schema');
 const multer = require('multer');
-const crypto = require("crypto")
+const crypto = require("crypto");
+const path = require("path");
 
 /* variables */
 // express app instance
@@ -78,6 +79,7 @@ app.get("/uploads/product/:id", (req, res) => {
   console.log("ddddd", __dirname + "\\uploads\\product\\" + req.params.id)
   res.sendFile(__dirname + "\\uploads\\product\\" + req.params.id, (err) => {
     if (err) {
+      console.log("error");
       res.status(404).send("Not found");
     }
   });
@@ -98,5 +100,7 @@ app.post("/product-image", function (req, res) {
 });
 
 app.use("/graphql", graphqlHTTP({ schema: schema, graphiql: true }));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;

@@ -805,7 +805,38 @@ const AllPaymentSaleInvoiceType = new GraphQLObjectType({
         allPaymentSaleInvoice: { type: new GraphQLList(TransactionType) },
         aggregations: { type: AggregationType }
     }
-})
+});
+
+const allTransationsReportItemType = new GraphQLObjectType({
+    name: "allTransationsReportItem",
+    fields: {
+        total_amount: { type: GraphQLFloat },
+        discount: { type: GraphQLFloat },
+        paid_amount: { type: GraphQLFloat },
+        due_amount: { type: GraphQLFloat },
+        profit: { type: GraphQLFloat },
+        note: { type: GraphQLString },
+        status: { type: GraphQLString },
+        updated_at: { type: GraphQLDateTime },
+        saleInvoiceProduct: { type: new GraphQLList(SaleInvoiceProductType) }
+    }
+});
+
+const dailyTransactionSummaryReportItemType = new GraphQLObjectType({
+    name: "dailyTransactionSummaryReportItemType",
+    fields: {
+        total_amount: { type: GraphQLFloat },
+        discount: { type: GraphQLFloat },
+        paid_amount: { type: GraphQLFloat },
+        due_amount: { type: GraphQLFloat },
+        profit: { type: GraphQLFloat },
+        note: { type: GraphQLString },
+        status: { type: GraphQLString },
+        updated_at: { type: GraphQLDateTime },
+        saleInvoiceProduct: { type: new GraphQLList(SaleInvoiceProductType) },
+        transaction: { type: new GraphQLList(TransactionType) }
+    }
+});
 
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
@@ -5056,6 +5087,152 @@ const RootQuery = new GraphQLObjectType({
 
                     return { allPaymentSaleInvoice };
                 }
+            }
+        },
+
+        allTransactionsReportData: {
+            type: new GraphQLList(allTransationsReportItemType),
+            args: {
+                startdate: { type: GraphQLString },
+                enddate: { type: GraphQLString },
+                userId: { type: GraphQLInt },
+                customerId: { type: GraphQLInt }
+            },
+            async resolve(parent, args) {
+                const allSalesInvoice = await prisma.saleInvoice.findMany({
+                    where: {
+                        date: {
+                            gte: new Date(args.startdate),
+                            lte: new Date(args.enddate),
+                        },
+                        user_id: args.userId,
+                        customer_id: args.customerId
+                    },
+                    include: {
+                        saleInvoiceProduct: {
+                            include: {
+                                product: true,
+                            }
+                        }
+                    }
+                });
+
+                for (let i = 0; i < allSalesInvoice.length; i++) {
+                    // transactions of the paid amount
+                    const transactions2 = await prisma.transaction.findMany({
+                        where: {
+                            type: "purchase",
+                            related_id: Number(allSalesInvoice[i].id),
+                            OR: [
+                                {
+                                    credit_id: 1,
+                                },
+                                {
+                                    credit_id: 2,
+                                },
+                            ],
+                        },
+                    });
+                    // transactions of the discount earned amount
+                    const transactions3 = await prisma.transaction.findMany({
+                        where: {
+                            type: "purchase",
+                            related_id: Number(allSalesInvoice[i].id),
+                            credit_id: 13,
+                        },
+                    });
+                    // transactions of the return purchase invoice's amount
+                    const transactions4 = await prisma.transaction.findMany({
+                        where: {
+                            type: "purchase_return",
+                            related_id: Number(allSalesInvoice[i].id),
+                            OR: [
+                                {
+                                    debit_id: 1,
+                                },
+                                {
+                                    debit_id: 2,
+                                },
+                            ],
+                        },
+                    });
+                    // get return purchase invoice information with products of this purchase invoice
+                    const returnPurchaseInvoice = await prisma.returnPurchaseInvoice.findMany({
+                        where: {
+                            purchaseInvoice_id: Number(allSalesInvoice[i].id),
+                        },
+                        include: {
+                            returnPurchaseInvoiceProduct: {
+                                include: {
+                                    product: true,
+                                },
+                            },
+                        },
+                    });
+
+                    // sum of total paid amount
+                    const totalPaidAmount = transactions2.reduce(
+                        (acc, item) => acc + item.amount,
+                        0
+                    );
+                    // sum of total discount earned amount
+                    const totalDiscountAmount = transactions3.reduce(
+                        (acc, item) => acc + item.amount,
+                        0
+                    );
+                    // sum of total return purchase invoice amount
+                    const paidAmountReturn = transactions4.reduce(
+                        (acc, curr) => acc + curr.amount,
+                        0
+                    );
+                    // sum total amount of all return purchase invoice related to this purchase invoice
+                    const totalReturnAmount = returnPurchaseInvoice.reduce(
+                        (acc, item) => acc + item.total_amount,
+                        0
+                    );
+
+                    const dueAmount =
+                        allSalesInvoice[i].total_amount -
+                        allSalesInvoice[i].discount -
+                        totalPaidAmount -
+                        totalDiscountAmount -
+                        totalReturnAmount +
+                        paidAmountReturn;
+                    if (dueAmount === 0) {
+                        allSalesInvoice[i].status = "PAID";
+                    } else {
+                        allSalesInvoice[i].status = "UNPAID";
+                    }
+                }
+
+                return allSalesInvoice;
+            }
+        },
+
+        dailyTransactionSummaryReportData: {
+            type: new GraphQLList(dailyTransactionSummaryReportItemType),
+            args: {
+                date: { type: GraphQLString },
+                userId: { type: GraphQLInt },
+                customerId: { type: GraphQLInt }
+            },
+            async resolve(parent, args) {
+                const allSalesInvoice = await prisma.saleInvoice.findMany({
+                    where: {
+                        date: new Date(args.date),
+                        user_id: args.userId,
+                        customer_id: args.customerId
+                    },
+                    include: {
+                        saleInvoiceProduct: {
+                            include: {
+                                product: true,
+                            }
+                        },
+                        transaction: true
+                    }
+                });
+                return allSalesInvoice;
             }
         }
     }
