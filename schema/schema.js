@@ -63,7 +63,7 @@ const AggregationType = new GraphQLObjectType({
 const CategoryType = new GraphQLObjectType({
     name: "Category",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         createdAt: { type: GraphQLDateTime },
         updatedAt: { type: GraphQLDateTime },
@@ -75,13 +75,13 @@ const CategoryType = new GraphQLObjectType({
 const ProductType = new GraphQLObjectType({
     name: "Product",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         quantity: { type: GraphQLInt },
         purchase_price: { type: GraphQLFloat },
         sale_price: { type: GraphQLFloat },
         imageName: { type: GraphQLString },
-        product_category_id: { type: GraphQLInt },
+        product_category_id: { type: GraphQLString },
         unit_measurement: { type: GraphQLFloat },
         unit_type: { type: GraphQLString },
         sku: { type: GraphQLString },
@@ -108,7 +108,7 @@ const IncomeProductType = new GraphQLInputObjectType({
         quantity: { type: GraphQLInt },
         purchase_price: { type: GraphQLFloat },
         sale_price: { type: GraphQLFloat },
-        product_category_id: { type: GraphQLInt },
+        product_category_id: { type: GraphQLString },
         unit_measurement: { type: GraphQLFloat },
         unit_type: { type: GraphQLString },
         sku: { type: GraphQLString },
@@ -127,9 +127,9 @@ const AllProductsType = new GraphQLObjectType({
 const SaleInvoiceProductType = new GraphQLObjectType({
     name: "SaleInvoiceProduct",
     fields: {
-        id: { type: GraphQLInt },
-        product_id: { type: GraphQLInt },
-        invoice_id: { type: GraphQLInt },
+        id: { type: GraphQLString },
+        product_id: { type: GraphQLString },
+        invoice_id: { type: GraphQLString },
         product_quantity: { type: GraphQLInt },
         product_sale_price: { type: GraphQLFloat },
         created_at: { type: GraphQLDateTime },
@@ -141,15 +141,15 @@ const SaleInvoiceProductType = new GraphQLObjectType({
 const SaleInvoiceForReturnType = new GraphQLObjectType({
     name: "SaleInvoiceForReturn",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         discount: { type: GraphQLFloat },
         paid_amount: { type: GraphQLFloat },
         due_amount: { type: GraphQLFloat },
         profit: { type: GraphQLFloat },
-        customer_id: { type: GraphQLInt },
-        user_id: { type: GraphQLInt },
+        customer_id: { type: GraphQLString },
+        user_id: { type: GraphQLString },
         note: { type: GraphQLString },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -159,11 +159,11 @@ const SaleInvoiceForReturnType = new GraphQLObjectType({
 const ReturnSaleInvoiceType = new GraphQLObjectType({
     name: "ReturnSaleInvoice",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         note: { type: GraphQLString },
-        saleInvoice_id: { type: GraphQLInt },
+        saleInvoice_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -177,7 +177,7 @@ const IncomeReturnSaleInvoiceProductType = new GraphQLInputObjectType({
     fields: {
         product_sale_price: { type: GraphQLFloat },
         product_quantity: { type: GraphQLInt },
-        product_id: { type: GraphQLInt },
+        product_id: { type: GraphQLString },
         purchase_price: { type: GraphQLFloat },
     }
 });
@@ -185,9 +185,9 @@ const IncomeReturnSaleInvoiceProductType = new GraphQLInputObjectType({
 const ReturnSaleInvoiceProductType = new GraphQLObjectType({
     name: "ReturnSaleInvoiceProduct",
     fields: {
-        id: { type: GraphQLInt },
-        product_id: { type: GraphQLInt },
-        invoice_id: { type: GraphQLInt },
+        id: { type: GraphQLString },
+        product_id: { type: GraphQLString },
+        invoice_id: { type: GraphQLString },
         product_quantity: { type: GraphQLInt },
         product_sale_price: { type: GraphQLFloat },
         created_at: { type: GraphQLString },
@@ -208,7 +208,7 @@ const DetailedSingleReturnSaleInvoiceType = new GraphQLObjectType({
 const DesignationType = new GraphQLObjectType({
     name: "Designation",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         createdAt: { type: GraphQLDateTime },
         updatedAt: { type: GraphQLDateTime },
@@ -220,12 +220,12 @@ const DesignationType = new GraphQLObjectType({
 const UserType = new GraphQLObjectType({
     name: "User",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         username: { type: GraphQLString },
         role: { type: GraphQLString },
         email: { type: GraphQLString },
         salary: { type: GraphQLInt },
-        designation_id: { type: GraphQLInt },
+        designation_id: { type: GraphQLString },
         designation: { type: DesignationType },
         join_date: { type: GraphQLDateTime },
         leave_date: { type: GraphQLDateTime },
@@ -310,8 +310,8 @@ const AllPurchaseInfoType = new GraphQLObjectType({
 const PurchaseInvoiceProductInputType = new GraphQLInputObjectType({
     name: "PurchaseInvoiceProductInput",
     fields: () => ({
-        id: { type: GraphQLInt },
-        product_id: { type: GraphQLInt },
+        id: { type: GraphQLString },
+        product_id: { type: GraphQLString },
         product_quantity: { type: GraphQLInt },
         product_purchase_price: { type: GraphQLFloat },
     })
@@ -320,14 +320,14 @@ const PurchaseInvoiceProductInputType = new GraphQLInputObjectType({
 const TransactionType = new GraphQLObjectType({
     name: "Transaction",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
-        debit_id: { type: GraphQLInt },
-        credit_id: { type: GraphQLInt },
+        debit_id: { type: GraphQLString },
+        credit_id: { type: GraphQLString },
         particulars: { type: GraphQLString },
         amount: { type: GraphQLFloat },
         type: { type: GraphQLString },
-        related_id: { type: GraphQLInt },
+        related_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -361,13 +361,13 @@ const CompletedTransactionType = new GraphQLObjectType({
 const PurchaseInvoiceType = new GraphQLObjectType({
     name: "PurchaseInvoice",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         discount: { type: GraphQLFloat },
         paid_amount: { type: GraphQLFloat },
         due_amount: { type: GraphQLFloat },
-        supplier_id: { type: GraphQLInt },
+        supplier_id: { type: GraphQLString },
         note: { type: GraphQLString },
         supplier_memo_no: { type: GraphQLString },
         created_at: { type: GraphQLDateTime },
@@ -389,15 +389,15 @@ const CustomerInputType = new GraphQLInputObjectType({
 const SaleInvoiceWithCustomerType = new GraphQLObjectType({
     name: "SaleInvoiceWithCustomer",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         discount: { type: GraphQLFloat },
         paid_amount: { type: GraphQLFloat },
         due_amount: { type: GraphQLFloat },
         profit: { type: GraphQLFloat },
-        customer_id: { type: GraphQLInt },
-        user_id: { type: GraphQLInt },
+        customer_id: { type: GraphQLString },
+        user_id: { type: GraphQLString },
         note: { type: GraphQLString },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime }
@@ -407,7 +407,7 @@ const SaleInvoiceWithCustomerType = new GraphQLObjectType({
 const CustomerType = new GraphQLObjectType({
     name: "Customer",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         phone: { type: GraphQLString },
         address: { type: GraphQLString },
@@ -436,15 +436,15 @@ const AllCustomersType = new GraphQLObjectType({
 const SaleInvoiceType = new GraphQLObjectType({
     name: "SaleInvoice",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         discount: { type: GraphQLFloat },
         paid_amount: { type: GraphQLFloat },
         due_amount: { type: GraphQLFloat },
         profit: { type: GraphQLFloat },
-        customer_id: { type: GraphQLInt },
-        user_id: { type: GraphQLInt },
+        customer_id: { type: GraphQLString },
+        user_id: { type: GraphQLString },
         note: { type: GraphQLString },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -458,11 +458,11 @@ const SaleInvoiceType = new GraphQLObjectType({
 const SingleReturnSaleInvoiceType = new GraphQLObjectType({
     name: "SingleReturnSaleInvoice",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLString },
         total_amount: { type: GraphQLInt },
         note: { type: GraphQLString },
-        saleInvoice_id: { type: GraphQLInt },
+        saleInvoice_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         created_at: { type: GraphQLString },
         updated_at: { type: GraphQLString },
@@ -482,15 +482,15 @@ const AllSaleInvoiceInfoType = new GraphQLObjectType({
 const SingleSaleInvoiceType = new GraphQLObjectType({
     name: "CreatedSaleInvoice",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         discount: { type: GraphQLFloat },
         paid_amount: { type: GraphQLFloat },
         due_amount: { type: GraphQLFloat },
         profit: { type: GraphQLFloat },
-        customer_id: { type: GraphQLInt },
-        user_id: { type: GraphQLInt },
+        customer_id: { type: GraphQLString },
+        user_id: { type: GraphQLString },
         note: { type: GraphQLString },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -505,16 +505,16 @@ const IncomeSaleInvoiceProductType = new GraphQLInputObjectType({
     fields: {
         product_sale_price: { type: GraphQLFloat },
         product_quantity: { type: GraphQLInt },
-        product_id: { type: GraphQLInt }
+        product_id: { type: GraphQLString }
     }
 });
 
 const ReturnPurchaseInvoiceProductType = new GraphQLObjectType({
     name: "ReturnPurchaseInvoiceProduct",
     fields: {
-        id: { type: GraphQLInt },
-        product_id: { type: GraphQLInt },
-        invoice_id: { type: GraphQLInt },
+        id: { type: GraphQLString },
+        product_id: { type: GraphQLString },
+        invoice_id: { type: GraphQLString },
         product_quantity: { type: GraphQLInt },
         product_purchase_price: { type: GraphQLFloat },
         created_at: { type: GraphQLDateTime },
@@ -526,11 +526,11 @@ const ReturnPurchaseInvoiceProductType = new GraphQLObjectType({
 const SingleReturnPurchaseInvoiceType = new GraphQLObjectType({
     name: "SingleReturnPurchaseInvoice",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         note: { type: GraphQLString },
-        purchaseInvoice_id: { type: GraphQLInt },
+        purchaseInvoice_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -544,7 +544,7 @@ const IncomeReturnPurchaseInvoiceProductType = new GraphQLInputObjectType({
     fields: {
         product_purchase_price: { type: GraphQLFloat },
         product_quantity: { type: GraphQLInt },
-        product_id: { type: GraphQLInt }
+        product_id: { type: GraphQLString }
     }
 });
 
@@ -564,9 +564,9 @@ const DetailedSinglePurchaseInvoiceType = new GraphQLObjectType({
 const PurchaseInvoiceProductType = new GraphQLObjectType({
     name: "PurchaseInvoiceProduct",
     fields: () => ({
-        id: { type: GraphQLInt },
-        product_id: { type: GraphQLInt },
-        invoice_id: { type: GraphQLInt },
+        id: { type: GraphQLString },
+        product_id: { type: GraphQLString },
+        invoice_id: { type: GraphQLString },
         product_quantity: { type: GraphQLInt },
         product_purchase_price: { type: GraphQLFloat },
         created_at: { type: GraphQLString },
@@ -578,11 +578,11 @@ const PurchaseInvoiceProductType = new GraphQLObjectType({
 const ReturnPurchaseInvoiceType = new GraphQLObjectType({
     name: "ReturnPurchaseInvoice",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         date: { type: GraphQLDateTime },
         total_amount: { type: GraphQLFloat },
         note: { type: GraphQLString },
-        purchaseInvoice_id: { type: GraphQLInt },
+        purchaseInvoice_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -602,7 +602,7 @@ const DetailedSingleReturnPurchaseInvoiceType = new GraphQLObjectType({
 const SupplierType = new GraphQLObjectType({
     name: "Supplier",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         phone: { type: GraphQLString },
         address: { type: GraphQLString },
@@ -659,10 +659,10 @@ const AllTransactionsType = new GraphQLObjectType({
 const AccountType = new GraphQLObjectType({
     name: "Account",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         type: { type: GraphQLString },
-        account_id: { type: GraphQLInt },
+        account_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         account: {
             type: new GraphQLObjectType({
@@ -683,7 +683,7 @@ const AccountType = new GraphQLObjectType({
 const CreditDebitType = new GraphQLObjectType({
     name: "CreditDebit",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         account: { type: GraphQLString },
         subAccount: { type: GraphQLString },
         totalDebit: { type: GraphQLFloat },
@@ -691,12 +691,12 @@ const CreditDebitType = new GraphQLObjectType({
         balance: { type: GraphQLFloat },
 
         date: { type: GraphQLDateTime },
-        debit_id: { type: GraphQLInt },
-        credit_id: { type: GraphQLInt },
+        debit_id: { type: GraphQLString },
+        credit_id: { type: GraphQLString },
         particulars: { type: GraphQLString },
         amount: { type: GraphQLFloat },
         type: { type: GraphQLString },
-        related_id: { type: GraphQLInt },
+        related_id: { type: GraphQLString },
         status: { type: GraphQLString },
         created_at: { type: GraphQLDateTime },
         updated_at: { type: GraphQLDateTime },
@@ -707,9 +707,9 @@ const CreditDebitType = new GraphQLObjectType({
 const SubAccountType = new GraphQLObjectType({
     name: "SubAccount",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
-        account_id: { type: GraphQLInt },
+        account_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         debit: { type: new GraphQLList(CreditDebitType) },
         credit: { type: new GraphQLList(CreditDebitType) },
@@ -743,7 +743,7 @@ const AllAccountInfoType = new GraphQLObjectType({
 const PermissionType = new GraphQLObjectType({
     name: "Permission",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         createdAt: { type: GraphQLDateTime },
         updatedAt: { type: GraphQLDateTime }
@@ -753,9 +753,9 @@ const PermissionType = new GraphQLObjectType({
 const RolePermissionType = new GraphQLObjectType({
     name: "RolePermission",
     fields: () => ({
-        id: { type: GraphQLInt },
-        role_id: { type: GraphQLInt },
-        permission_id: { type: GraphQLInt },
+        id: { type: GraphQLString },
+        role_id: { type: GraphQLString },
+        permission_id: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         createdAt: { type: GraphQLDateTime },
         updatedAt: { type: GraphQLDateTime },
@@ -767,7 +767,7 @@ const RolePermissionType = new GraphQLObjectType({
 const RoleType = new GraphQLObjectType({
     name: "Role",
     fields: {
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         name: { type: GraphQLString },
         status: { type: GraphQLBoolean },
         createdAt: { type: GraphQLDateTime },
@@ -780,7 +780,7 @@ const RoleType = new GraphQLObjectType({
 const SettingType = new GraphQLObjectType({
     name: "Setting",
     fields: () => ({
-        id: { type: GraphQLInt },
+        id: { type: GraphQLString },
         company_name: { type: GraphQLString },
         tag_line: { type: GraphQLString },
         address: { type: GraphQLString },
@@ -954,12 +954,12 @@ const RootQuery = new GraphQLObjectType({
         getSingleUser: {
             type: UserType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const singleUser = await prisma.user.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         saleInvoice: true,
@@ -1226,6 +1226,8 @@ const RootQuery = new GraphQLObjectType({
                         }),
                     ]);
 
+                    const subAccounts = await prisma.subAccount.findMany();
+
                     // modify data to actual data of purchase invoice's current value by adjusting with transactions and returns
                     // get all transactions related to purchase invoice
                     const transactions = await prisma.transaction.findMany({
@@ -1236,10 +1238,10 @@ const RootQuery = new GraphQLObjectType({
                             },
                             OR: [
                                 {
-                                    credit_id: 1,
+                                    credit_id: subAccounts[0].id,
                                 },
                                 {
-                                    credit_id: 2,
+                                    credit_id: subAccounts[1].id,
                                 },
                             ],
                         },
@@ -1254,10 +1256,10 @@ const RootQuery = new GraphQLObjectType({
                             },
                             OR: [
                                 {
-                                    debit_id: 1,
+                                    debit_id: subAccounts[0].id,
                                 },
                                 {
-                                    debit_id: 2,
+                                    debit_id: subAccounts[1].id,
                                 },
                             ],
                         },
@@ -1270,7 +1272,7 @@ const RootQuery = new GraphQLObjectType({
                             related_id: {
                                 in: purchaseInvoices.map((item) => item.id),
                             },
-                            credit_id: 13,
+                            credit_id: subAccounts[12].id,
                         },
                         include: {
                             debit: {
@@ -1354,12 +1356,12 @@ const RootQuery = new GraphQLObjectType({
         getSinglePurchaseInvoice: {
             type: DetailedSinglePurchaseInvoiceType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 // get single purchase invoice information with products
                 const singlePurchaseInvoice = await prisma.purchaseInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         purchaseInvoiceProduct: {
@@ -1373,7 +1375,7 @@ const RootQuery = new GraphQLObjectType({
                 // get all transactions related to this purchase invoice
                 const transactions = await prisma.transaction.findMany({
                     where: {
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
                                 type: "purchase",
@@ -1396,17 +1398,20 @@ const RootQuery = new GraphQLObjectType({
                         },
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // transactions of the paid amount
                 const transactions2 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -1415,21 +1420,21 @@ const RootQuery = new GraphQLObjectType({
                 const transactions3 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase",
-                        related_id: Number(args.id),
-                        credit_id: 13,
+                        related_id: args.id,
+                        credit_id: subAccounts[12].id,
                     },
                 });
                 // transactions of the return purchase invoice's amount
                 const transactions4 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase_return",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -1437,7 +1442,7 @@ const RootQuery = new GraphQLObjectType({
                 // get return purchase invoice information with products of this purchase invoice
                 const returnPurchaseInvoice = await prisma.returnPurchaseInvoice.findMany({
                     where: {
-                        purchaseInvoice_id: Number(args.id),
+                        purchaseInvoice_id: args.id,
                     },
                     include: {
                         returnPurchaseInvoiceProduct: {
@@ -1498,7 +1503,7 @@ const RootQuery = new GraphQLObjectType({
         allSaleInvoiceData: {
             type: AllSaleInvoiceInfoType,
             args: {
-                user: { type: GraphQLInt },
+                user: { type: GraphQLString },
                 page: { type: GraphQLInt },
                 count: { type: GraphQLInt },
                 startdate: { type: GraphQLString },
@@ -1528,7 +1533,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                             // get saleInvoice paginated and by start and end date
@@ -1564,7 +1569,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                         ]);
@@ -1587,7 +1592,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                             // get saleInvoice paginated and by start and end date
@@ -1621,7 +1626,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                         ]);
@@ -1741,6 +1746,9 @@ const RootQuery = new GraphQLObjectType({
                         ]);
                     }
                 }
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // modify data to actual data of sale invoice's current value by adjusting with transactions and returns
                 const transactions = await prisma.transaction.findMany({
                     where: {
@@ -1750,10 +1758,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -1767,10 +1775,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -1782,7 +1790,7 @@ const RootQuery = new GraphQLObjectType({
                         related_id: {
                             in: saleInvoices.map((item) => item.id),
                         },
-                        debit_id: 14,
+                        debit_id: subAccounts[13].id,
                     },
                     include: {
                         debit: {
@@ -1880,11 +1888,11 @@ const RootQuery = new GraphQLObjectType({
         getSingleSaleInvoice: {
             type: DetailedSingleSaleInvoiceType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleSaleInvoice = await prisma.saleInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         saleInvoiceProduct: {
@@ -1904,7 +1912,7 @@ const RootQuery = new GraphQLObjectType({
                 // view the transactions of the sale invoice
                 const transactions = await prisma.transaction.findMany({
                     where: {
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
                                 type: "sale",
@@ -1931,13 +1939,13 @@ const RootQuery = new GraphQLObjectType({
                 const transactions2 = await prisma.transaction.findMany({
                     where: {
                         type: "sale",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -1957,7 +1965,7 @@ const RootQuery = new GraphQLObjectType({
                 // for total return amount
                 const returnSaleInvoice = await prisma.returnSaleInvoice.findMany({
                     where: {
-                        saleInvoice_id: Number(args.id),
+                        saleInvoice_id: args.id,
                     },
                     include: {
                         returnSaleInvoiceProduct: {
@@ -1971,8 +1979,8 @@ const RootQuery = new GraphQLObjectType({
                 const transactions3 = await prisma.transaction.findMany({
                     where: {
                         type: "sale",
-                        related_id: Number(args.id),
-                        debit_id: 14,
+                        related_id: args.id,
+                        debit_id: subAccounts[13].id,
                     },
                     include: {
                         debit: {
@@ -1987,18 +1995,21 @@ const RootQuery = new GraphQLObjectType({
                         },
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // calculate the total amount return back to customer for return sale invoice from transactions
                 // transactions of the paid amount
                 const transactions4 = await prisma.transaction.findMany({
                     where: {
                         type: "sale_return",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -2108,12 +2119,12 @@ const RootQuery = new GraphQLObjectType({
         singleProductCategoryData: {
             type: CategoryType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const singleProductCategory = await prisma.product_category.findUnique({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     include: {
                         product: true,
@@ -2229,7 +2240,7 @@ const RootQuery = new GraphQLObjectType({
                             id: "desc",
                         },
                         where: {
-                            product_category_id: parseInt(args.prod),
+                            product_category_id: args.prod,
                             status: true,
                         },
                         include: {
@@ -2331,12 +2342,12 @@ const RootQuery = new GraphQLObjectType({
         }, singleProductData: {
             type: ProductType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const singleProduct = await prisma.product.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                 });
                 if (singleProduct && singleProduct.imageName) {
@@ -2419,11 +2430,11 @@ const RootQuery = new GraphQLObjectType({
         }, getSingleSupplier: {
             type: SupplierType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleSupplier = await prisma.supplier.findUnique({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     include: {
                         purchaseInvoice: true,
@@ -2438,13 +2449,13 @@ const RootQuery = new GraphQLObjectType({
                             discount: true,
                         },
                         where: {
-                            supplier_id: parseInt(args.id),
+                            supplier_id: args.id,
                         },
                     });
                 // all invoice of a supplier with return purchase invoice nested
                 const suppliersAllInvoice = await prisma.supplier.findUnique({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     include: {
                         purchaseInvoice: {
@@ -2486,6 +2497,9 @@ const RootQuery = new GraphQLObjectType({
                         return purchaseInvoice.id;
                     }
                 );
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // get all transactions related to purchaseInvoice
                 const allPurchaseTransaction = await prisma.transaction.findMany({
                     where: {
@@ -2495,10 +2509,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -2524,10 +2538,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -2551,7 +2565,7 @@ const RootQuery = new GraphQLObjectType({
                         related_id: {
                             in: allPurchaseInvoiceId,
                         },
-                        credit_id: 13,
+                        credit_id: subAccounts[12].id,
                     },
                     include: {
                         debit: {
@@ -2727,6 +2741,8 @@ const RootQuery = new GraphQLObjectType({
                         }),
                     ]);
 
+                    const subAccounts = await prisma.subAccount.findMany();
+
                     // modify data to actual data of purchase invoice's current value by adjusting with transactions and returns
                     // get all transactions related to purchase invoice
                     const transactions = await prisma.transaction.findMany({
@@ -2737,10 +2753,10 @@ const RootQuery = new GraphQLObjectType({
                             },
                             OR: [
                                 {
-                                    credit_id: 1,
+                                    credit_id: subAccounts[0].id,
                                 },
                                 {
-                                    credit_id: 2,
+                                    credit_id: subAccounts[1].id,
                                 },
                             ],
                         },
@@ -2755,10 +2771,10 @@ const RootQuery = new GraphQLObjectType({
                             },
                             OR: [
                                 {
-                                    debit_id: 1,
+                                    debit_id: subAccounts[0].id,
                                 },
                                 {
-                                    debit_id: 2,
+                                    debit_id: subAccounts[1].id,
                                 },
                             ],
                         },
@@ -2771,7 +2787,7 @@ const RootQuery = new GraphQLObjectType({
                             related_id: {
                                 in: purchaseInvoices.map((item) => item.id),
                             },
-                            credit_id: 13,
+                            credit_id: subAccounts[12].id,
                         },
                         include: {
                             debit: {
@@ -2855,12 +2871,12 @@ const RootQuery = new GraphQLObjectType({
         getSinglePurchaseInvoice: {
             type: DetailedSinglePurchaseInvoiceType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 // get single purchase invoice information with products
                 const singlePurchaseInvoice = await prisma.purchaseInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         purchaseInvoiceProduct: {
@@ -2874,7 +2890,7 @@ const RootQuery = new GraphQLObjectType({
                 // get all transactions related to this purchase invoice
                 const transactions = await prisma.transaction.findMany({
                     where: {
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
                                 type: "purchase",
@@ -2897,17 +2913,20 @@ const RootQuery = new GraphQLObjectType({
                         },
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // transactions of the paid amount
                 const transactions2 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -2916,21 +2935,21 @@ const RootQuery = new GraphQLObjectType({
                 const transactions3 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase",
-                        related_id: Number(args.id),
-                        credit_id: 13,
+                        related_id: args.id,
+                        credit_id: subAccounts[12].id,
                     },
                 });
                 // transactions of the return purchase invoice's amount
                 const transactions4 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase_return",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -2938,7 +2957,7 @@ const RootQuery = new GraphQLObjectType({
                 // get return purchase invoice information with products of this purchase invoice
                 const returnPurchaseInvoice = await prisma.returnPurchaseInvoice.findMany({
                     where: {
-                        purchaseInvoice_id: Number(args.id),
+                        purchaseInvoice_id: args.id,
                     },
                     include: {
                         returnPurchaseInvoiceProduct: {
@@ -3150,13 +3169,11 @@ const RootQuery = new GraphQLObjectType({
         getSingleTransaction: {
             type: TransactionType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
-                console.log(args.id, typeof (args.id));
-                console.log(Number(args.id), typeof (Number(args.id)))
                 const singleTransaction = await prisma.transaction.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         debit: {
@@ -3478,11 +3495,11 @@ const RootQuery = new GraphQLObjectType({
         getSingleAccount: {
             type: AccountType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleAccount = await prisma.subAccount.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         debit: true,
@@ -3574,12 +3591,12 @@ const RootQuery = new GraphQLObjectType({
         getSingleCustomer: {
             type: CustomerType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const singleCustomer = await prisma.customer.findUnique({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     include: {
                         saleInvoice: true,
@@ -3593,13 +3610,13 @@ const RootQuery = new GraphQLObjectType({
                         discount: true,
                     },
                     where: {
-                        customer_id: parseInt(args.id),
+                        customer_id: args.id,
                     },
                 });
                 // all invoice of a customer with return sale invoice nested
                 const customersAllInvoice = await prisma.customer.findUnique({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id
                     },
                     include: {
                         saleInvoice: {
@@ -3637,6 +3654,9 @@ const RootQuery = new GraphQLObjectType({
                         return saleInvoice.id;
                     }
                 );
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // get all transactions related to saleInvoice
                 const allSaleTransaction = await prisma.transaction.findMany({
                     where: {
@@ -3646,10 +3666,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -3666,6 +3686,7 @@ const RootQuery = new GraphQLObjectType({
                         },
                     },
                 });
+
                 // get all transactions related to return saleInvoice
                 const allReturnSaleTransaction = await prisma.transaction.findMany({
                     where: {
@@ -3675,10 +3696,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -3702,7 +3723,7 @@ const RootQuery = new GraphQLObjectType({
                         related_id: {
                             in: allSaleInvoiceId,
                         },
-                        debit_id: 14,
+                        debit_id: subAccounts[13].id,
                     },
                     include: {
                         debit: {
@@ -3805,7 +3826,7 @@ const RootQuery = new GraphQLObjectType({
         getAllSaleInvoice: {
             type: AllSaleInvoiceInfoType,
             args: {
-                user: { type: GraphQLInt },
+                user: { type: GraphQLString },
                 page: { type: GraphQLInt },
                 count: { type: GraphQLInt },
                 startdate: { type: GraphQLString },
@@ -3834,7 +3855,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                             // get saleInvoice paginated and by start and end date
@@ -3870,7 +3891,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                         ]);
@@ -3893,7 +3914,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                             // get saleInvoice paginated and by start and end date
@@ -3927,7 +3948,7 @@ const RootQuery = new GraphQLObjectType({
                                         gte: new Date(args.startdate),
                                         lte: new Date(args.enddate),
                                     },
-                                    user_id: Number(args.user),
+                                    user_id: args.user,
                                 },
                             }),
                         ]);
@@ -4047,6 +4068,9 @@ const RootQuery = new GraphQLObjectType({
                         ]);
                     }
                 }
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // modify data to actual data of sale invoice's current value by adjusting with transactions and returns
                 const transactions = await prisma.transaction.findMany({
                     where: {
@@ -4056,10 +4080,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -4073,10 +4097,10 @@ const RootQuery = new GraphQLObjectType({
                         },
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -4088,7 +4112,7 @@ const RootQuery = new GraphQLObjectType({
                         related_id: {
                             in: saleInvoices.map((item) => item.id),
                         },
-                        debit_id: 14,
+                        debit_id: subAccounts[13].id,
                     },
                     include: {
                         debit: {
@@ -4186,11 +4210,11 @@ const RootQuery = new GraphQLObjectType({
         getSingleSaleInvoice: {
             type: DetailedSingleSaleInvoiceType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleSaleInvoice = await prisma.saleInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         saleInvoiceProduct: {
@@ -4210,7 +4234,7 @@ const RootQuery = new GraphQLObjectType({
                 // view the transactions of the sale invoice
                 const transactions = await prisma.transaction.findMany({
                     where: {
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
                                 type: "sale",
@@ -4233,17 +4257,20 @@ const RootQuery = new GraphQLObjectType({
                         },
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // transactions of the paid amount
                 const transactions2 = await prisma.transaction.findMany({
                     where: {
                         type: "sale",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -4263,7 +4290,7 @@ const RootQuery = new GraphQLObjectType({
                 // for total return amount
                 const returnSaleInvoice = await prisma.returnSaleInvoice.findMany({
                     where: {
-                        saleInvoice_id: Number(args.id),
+                        saleInvoice_id: args.id,
                     },
                     include: {
                         returnSaleInvoiceProduct: {
@@ -4277,8 +4304,8 @@ const RootQuery = new GraphQLObjectType({
                 const transactions3 = await prisma.transaction.findMany({
                     where: {
                         type: "sale",
-                        related_id: Number(args.id),
-                        debit_id: 14,
+                        related_id: args.id,
+                        debit_id: subAccounts[13].id,
                     },
                     include: {
                         debit: {
@@ -4293,18 +4320,19 @@ const RootQuery = new GraphQLObjectType({
                         },
                     },
                 });
+
                 // calculate the total amount return back to customer for return sale invoice from transactions
                 // transactions of the paid amount
                 const transactions4 = await prisma.transaction.findMany({
                     where: {
                         type: "sale_return",
-                        related_id: Number(args.id),
+                        related_id: args.id,
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -4453,11 +4481,11 @@ const RootQuery = new GraphQLObjectType({
         getSingleDesignation: {
             type: DesignationType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleDesignation = await prisma.designation.findUnique({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     include: {
                         user: {
@@ -4488,12 +4516,12 @@ const RootQuery = new GraphQLObjectType({
         getSingleRole: {
             type: RoleType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const singleRole = await prisma.role.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         rolePermission: {
@@ -4583,11 +4611,7 @@ const RootQuery = new GraphQLObjectType({
         getSetting: {
             type: SettingType,
             async resolve() {
-                const newSetting = await prisma.appSetting.findUnique({
-                    where: {
-                        id: 1,
-                    },
-                });
+                const newSetting = await prisma.appSetting.findFirst();
                 return newSetting;
             }
         },
@@ -4636,12 +4660,12 @@ const RootQuery = new GraphQLObjectType({
         getSingleRolePermission: {
             type: RolePermissionType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const singleRolePermission = await prisma.rolePermission.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                 });
                 return singleRolePermission;
@@ -4816,11 +4840,11 @@ const RootQuery = new GraphQLObjectType({
         }, getSingleReturnPurchaseInvoice: {
             type: SingleReturnPurchaseInvoiceType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleProduct = await prisma.returnPurchaseInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         returnPurchaseInvoiceProduct: {
@@ -4969,11 +4993,11 @@ const RootQuery = new GraphQLObjectType({
         getSingleReturnSaleInvoice: {
             type: SingleReturnSaleInvoiceType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const singleProduct = await prisma.returnSaleInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     include: {
                         returnSaleInvoiceProduct: {
@@ -5095,8 +5119,8 @@ const RootQuery = new GraphQLObjectType({
             args: {
                 startdate: { type: GraphQLString },
                 enddate: { type: GraphQLString },
-                userId: { type: GraphQLInt },
-                customerId: { type: GraphQLInt }
+                userId: { type: GraphQLString },
+                customerId: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const allSalesInvoice = await prisma.saleInvoice.findMany({
@@ -5117,18 +5141,20 @@ const RootQuery = new GraphQLObjectType({
                     }
                 });
 
+                const subAccounts = await prisma.subAccount.findMany();
+
                 for (let i = 0; i < allSalesInvoice.length; i++) {
                     // transactions of the paid amount
                     const transactions2 = await prisma.transaction.findMany({
                         where: {
                             type: "purchase",
-                            related_id: Number(allSalesInvoice[i].id),
+                            related_id: allSalesInvoice[i].id,
                             OR: [
                                 {
-                                    credit_id: 1,
+                                    credit_id: subAccounts[0].id,
                                 },
                                 {
-                                    credit_id: 2,
+                                    credit_id: subAccounts[1].id,
                                 },
                             ],
                         },
@@ -5137,21 +5163,21 @@ const RootQuery = new GraphQLObjectType({
                     const transactions3 = await prisma.transaction.findMany({
                         where: {
                             type: "purchase",
-                            related_id: Number(allSalesInvoice[i].id),
-                            credit_id: 13,
+                            related_id: allSalesInvoice[i].id,
+                            credit_id: subAccounts[12].id,
                         },
                     });
                     // transactions of the return purchase invoice's amount
                     const transactions4 = await prisma.transaction.findMany({
                         where: {
                             type: "purchase_return",
-                            related_id: Number(allSalesInvoice[i].id),
+                            related_id: allSalesInvoice[i].id,
                             OR: [
                                 {
-                                    debit_id: 1,
+                                    debit_id: subAccounts[0].id,
                                 },
                                 {
-                                    debit_id: 2,
+                                    debit_id: subAccounts[1].id,
                                 },
                             ],
                         },
@@ -5159,7 +5185,7 @@ const RootQuery = new GraphQLObjectType({
                     // get return purchase invoice information with products of this purchase invoice
                     const returnPurchaseInvoice = await prisma.returnPurchaseInvoice.findMany({
                         where: {
-                            purchaseInvoice_id: Number(allSalesInvoice[i].id),
+                            purchaseInvoice_id: allSalesInvoice[i].id,
                         },
                         include: {
                             returnPurchaseInvoiceProduct: {
@@ -5213,8 +5239,8 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(dailyTransactionSummaryReportItemType),
             args: {
                 date: { type: GraphQLString },
-                userId: { type: GraphQLInt },
-                customerId: { type: GraphQLInt }
+                userId: { type: GraphQLString },
+                customerId: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const allSalesInvoice = await prisma.saleInvoice.findMany({
@@ -5259,7 +5285,7 @@ const Mutation = new GraphQLObjectType({
                 blood_group: { type: GraphQLString },
                 image: { type: GraphQLString },
                 status: { type: GraphQLBoolean },
-                designation_id: { type: GraphQLInt }
+                designation_id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const join_date = new Date(args.join_date).toISOString().split("T")[0];
@@ -5286,7 +5312,7 @@ const Mutation = new GraphQLObjectType({
                         status: args.status,
                         designation: {
                             connect: {
-                                id: Number(args.designation_id),
+                                id: args.designation_id,
                             },
                         },
                     },
@@ -5300,7 +5326,7 @@ const Mutation = new GraphQLObjectType({
         updateSingleUser: {
             type: UserType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 username: { type: GraphQLString },
                 password: { type: GraphQLString },
                 role: { type: GraphQLString },
@@ -5315,7 +5341,7 @@ const Mutation = new GraphQLObjectType({
                 blood_group: { type: GraphQLString },
                 image: { type: GraphQLString },
                 status: { type: GraphQLBoolean },
-                designation_id: { type: GraphQLInt }
+                designation_id: { type: GraphQLString }
             },
             async resolve(parent, args, context) {
                 const user = gqlauthorize(context);
@@ -5330,7 +5356,7 @@ const Mutation = new GraphQLObjectType({
                         .split("T")[0];
                     const updateUser = await prisma.user.update({
                         where: {
-                            id: Number(args.id),
+                            id: args.id,
                         },
                         data: {
                             username: args.username,
@@ -5349,7 +5375,7 @@ const Mutation = new GraphQLObjectType({
                             status: args.status,
                             designation: {
                                 connect: {
-                                    id: Number(args.designation_id),
+                                    id: args.designation_id,
                                 },
                             },
                         },
@@ -5361,7 +5387,7 @@ const Mutation = new GraphQLObjectType({
                     const hash = await bcrypt.hash(args.password, saltRounds);
                     const updateUser = await prisma.user.update({
                         where: {
-                            id: Number(args.id),
+                            id: args.id,
                         },
                         data: {
                             password: hash,
@@ -5377,7 +5403,7 @@ const Mutation = new GraphQLObjectType({
         deleteUser: {
             type: UserType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             },
             async resolve(parent, args, context) {
@@ -5388,7 +5414,7 @@ const Mutation = new GraphQLObjectType({
                 if (user.permissions.includes("deleteUser")) {
                     const updatedUser = await prisma.user.update({
                         where: {
-                            id: Number(args.id),
+                            id: args.id,
                         },
                         data: {
                             status: args.status,
@@ -5413,12 +5439,12 @@ const Mutation = new GraphQLObjectType({
                 quantity: { type: GraphQLInt },
                 sale_price: { type: GraphQLFloat },
                 imageName: { type: GraphQLString },
-                product_category_id: { type: GraphQLInt },
+                product_category_id: { type: GraphQLString },
                 sku: { type: GraphQLString },
                 unit_measurement: { type: GraphQLFloat },
                 unit_type: { type: GraphQLString },
                 reorder_quantity: { type: GraphQLInt },
-                ids: { type: new GraphQLList(GraphQLInt) },
+                ids: { type: new GraphQLList(GraphQLString) },
                 incomeProducts: { type: new GraphQLList(IncomeProductType) }
             },
 
@@ -5429,7 +5455,7 @@ const Mutation = new GraphQLObjectType({
                     const deletedProduct = await prisma.product.deleteMany({
                         where: {
                             id: {
-                                in: args.ids.map((id) => Number(id)),
+                                in: args.ids,
                             },
                         },
                     });
@@ -5450,7 +5476,7 @@ const Mutation = new GraphQLObjectType({
                             quantity: parseInt(item.quantity),
                             purchase_price: parseFloat(item.purchase_price),
                             sale_price: parseFloat(item.sale_price),
-                            product_category_id: parseInt(item.product_category_id),
+                            product_category_id: item.product_category_id,
                             sku: item.sku,
                             unit_measurement: parseFloat(item.unit_measurement),
                             unit_type: item.unit_type,
@@ -5461,15 +5487,17 @@ const Mutation = new GraphQLObjectType({
                     // create many product from an array of object
                     const createdProducts = await prisma.product.createMany({
                         data: data,
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
+
+                    const subAccounts = await prisma.subAccount.findMany();
 
                     // stock product's account transaction create
                     await prisma.transaction.create({
                         data: {
                             date: new Date(),
-                            debit_id: 3,
-                            credit_id: 6,
+                            debit_id: subAccounts[2].id,
+                            credit_id: subAccounts[5].id,
                             amount: totalPurchasePrice,
                             particulars: `Initial stock of ${createdProducts.count} item/s of product`,
                         },
@@ -5487,7 +5515,7 @@ const Mutation = new GraphQLObjectType({
                             imageName: args.imageName,
                             product_category: {
                                 connect: {
-                                    id: Number(args.product_category_id),
+                                    id: args.product_category_id,
                                 },
                             },
                             sku: args.sku,
@@ -5497,13 +5525,15 @@ const Mutation = new GraphQLObjectType({
                         },
                     });
 
+                    const subAccounts = await prisma.subAccount.findMany();
+
                     createdProduct.imageUrl = `${HOST}:${PORT}/${process.env.UPLOAD_PATH}/${args.imageName}`;
                     // stock product's account transaction create
                     await prisma.transaction.create({
                         data: {
                             date: new Date(),
-                            debit_id: 3,
-                            credit_id: 6,
+                            debit_id: subAccounts[2].id,
+                            credit_id: subAccounts[5].id,
                             amount:
                                 parseFloat(args.purchase_price) * parseInt(args.quantity),
                             particulars: `Initial stock of product #${createdProduct.id}`,
@@ -5519,7 +5549,7 @@ const Mutation = new GraphQLObjectType({
         updateSingleProduct: {
             type: ProductType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString },
                 quantity: { type: GraphQLInt },
                 purchase_price: { type: GraphQLFloat },
@@ -5527,7 +5557,7 @@ const Mutation = new GraphQLObjectType({
             }, async resolve(parent, args) {
                 const updatedProduct = await prisma.product.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -5545,12 +5575,12 @@ const Mutation = new GraphQLObjectType({
         deleteSingleProduct: {
             type: ProductType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             }, async resolve(parent, args) {
                 const deletedProduct = await prisma.product.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         status: args.status,
@@ -5566,7 +5596,7 @@ const Mutation = new GraphQLObjectType({
             args: {
                 name: { type: GraphQLString },
                 query: { type: GraphQLString },
-                ids: { type: new GraphQLList(GraphQLInt) },
+                ids: { type: new GraphQLList(GraphQLString) },
                 categories: {
                     type: new GraphQLList(GraphQLString)
                 }
@@ -5577,7 +5607,7 @@ const Mutation = new GraphQLObjectType({
                     const deletedProductCategory = await prisma.product_category.deleteMany({
                         where: {
                             id: {
-                                in: args.ids.map((id) => parseInt(id)),
+                                in: args.ids,
                             },
                         },
                     });
@@ -5591,7 +5621,7 @@ const Mutation = new GraphQLObjectType({
                                 name: product_category,
                             };
                         }),
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
 
                     return createdProductCategory;
@@ -5610,13 +5640,13 @@ const Mutation = new GraphQLObjectType({
         updateSingleProductCategory: {
             type: CategoryType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const updatedProductCategory = await prisma.product_category.update({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -5629,12 +5659,12 @@ const Mutation = new GraphQLObjectType({
         deleteSingleProductCategory: {
             type: CategoryType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const deletedProductCategory = await prisma.product_category.delete({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                 });
 
@@ -5651,7 +5681,7 @@ const Mutation = new GraphQLObjectType({
                 phone: { type: GraphQLString },
                 address: { type: GraphQLString },
                 suppliers: { type: new GraphQLList(IncomeSupplierType) },
-                ids: { type: new GraphQLList(GraphQLInt) }
+                ids: { type: new GraphQLList(GraphQLString) }
             },
             async resolve(parent, args) {
                 if (args.query === "deletemany") {
@@ -5659,7 +5689,7 @@ const Mutation = new GraphQLObjectType({
                     const deletedSupplier = await prisma.supplier.deleteMany({
                         where: {
                             id: {
-                                in: args.ids.map((id) => parseInt(id)),
+                                in: args.ids
                             },
                         },
                     });
@@ -5674,7 +5704,7 @@ const Mutation = new GraphQLObjectType({
                                 address: supplier.address,
                             };
                         }),
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
                     return createdSupplier;
                 } else {
@@ -5693,14 +5723,14 @@ const Mutation = new GraphQLObjectType({
         }, updateSingleSupplier: {
             type: SupplierType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString },
                 phone: { type: GraphQLString },
                 address: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const updatedSupplier = await prisma.supplier.update({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -5714,13 +5744,13 @@ const Mutation = new GraphQLObjectType({
         }, deleteSingleSupplier: {
             type: SupplierType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             }, async resolve(parent, args) {
                 // delete a single supplier
                 const deletedSupplier = await prisma.supplier.update({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     data: {
                         status: args.status,
@@ -5738,7 +5768,7 @@ const Mutation = new GraphQLObjectType({
                 date: { type: GraphQLString },
                 discount: { type: GraphQLFloat },
                 paid_amount: { type: GraphQLFloat },
-                supplier_id: { type: GraphQLInt },
+                supplier_id: { type: GraphQLString },
                 note: { type: GraphQLString },
                 supplier_memo_no: { type: GraphQLString },
             },
@@ -5767,7 +5797,7 @@ const Mutation = new GraphQLObjectType({
                             parseFloat(args.paid_amount),
                         supplier: {
                             connect: {
-                                id: Number(args.supplier_id),
+                                id: args.supplier_id,
                             },
                         },
                         note: args.note,
@@ -5778,7 +5808,7 @@ const Mutation = new GraphQLObjectType({
                             create: args.purchaseInvoiceProduct.map((product) => ({
                                 product: {
                                     connect: {
-                                        id: Number(product.product_id),
+                                        id: product.product_id,
                                     },
                                 },
                                 product_quantity: Number(product.product_quantity),
@@ -5788,13 +5818,15 @@ const Mutation = new GraphQLObjectType({
                     },
                 });
 
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // pay on purchase transaction create
                 if (args.paid_amount > 0) {
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 3,
-                            credit_id: 1,
+                            debit_id: subAccounts[2].id,
+                            credit_id: subAccounts[0].id,
                             amount: parseFloat(args.paid_amount),
                             particulars: `Cash paid on Purchase Invoice #${createdInvoice.id}`,
                             type: "purchase",
@@ -5814,8 +5846,8 @@ const Mutation = new GraphQLObjectType({
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 3,
-                            credit_id: 5,
+                            debit_id: subAccounts[2].id,
+                            credit_id: subAccounts[4].id,
                             amount: due_amount,
                             particulars: `Due on Purchase Invoice #${createdInvoice.id}`,
                             type: "purchase",
@@ -5828,7 +5860,7 @@ const Mutation = new GraphQLObjectType({
                 args.purchaseInvoiceProduct.forEach(async (item) => {
                     await prisma.product.update({
                         where: {
-                            id: Number(item.product_id),
+                            id: item.product_id,
                         },
                         data: {
                             quantity: {
@@ -5853,7 +5885,7 @@ const Mutation = new GraphQLObjectType({
                 name: { type: GraphQLString },
                 phone: { type: GraphQLString },
                 address: { type: GraphQLString },
-                ids: { type: new GraphQLList(GraphQLInt) },
+                ids: { type: new GraphQLList(GraphQLString) },
                 customers: { type: new GraphQLList(CustomerInputType) }
             },
             async resolve(parent, args) {
@@ -5862,7 +5894,7 @@ const Mutation = new GraphQLObjectType({
                     const deletedAccount = await prisma.customer.deleteMany({
                         where: {
                             id: {
-                                in: args.ids.map((id) => parseInt(id)),
+                                in: args.ids
                             },
                         },
                     });
@@ -5877,7 +5909,7 @@ const Mutation = new GraphQLObjectType({
                                 address: customer.address,
                             };
                         }),
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
                     return createdCustomer;
                 } else {
@@ -5898,14 +5930,14 @@ const Mutation = new GraphQLObjectType({
         updateSingleCustomer: {
             type: CustomerType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString },
                 phone: { type: GraphQLString },
                 address: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const updatedCustomer = await prisma.customer.update({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -5922,12 +5954,12 @@ const Mutation = new GraphQLObjectType({
         deleteCustomer: {
             type: CustomerType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             }, async resolve(parent, args) {
                 const deletedCustomer = await prisma.customer.update({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     data: {
                         status: args.status,
@@ -5950,9 +5982,10 @@ const Mutation = new GraphQLObjectType({
                 footer: { type: GraphQLString }
             },
             async resolve(parent, args) {
+                const setting = await prisma.appSetting.findFirst();
                 const updatedSetting = await prisma.appSetting.update({
                     where: {
-                        id: 1,
+                        id: setting.id
                     },
                     data: { ...args },
                 });
@@ -5967,7 +6000,7 @@ const Mutation = new GraphQLObjectType({
                 query: { type: GraphQLString },
                 name: { type: GraphQLString },
                 designations: { type: new GraphQLList(GraphQLString) },
-                ids: { type: new GraphQLList(GraphQLInt) }
+                ids: { type: new GraphQLList(GraphQLString) }
             },
             async resolve(parent, args) {
                 if (args.query === "deletemany") {
@@ -5989,7 +6022,7 @@ const Mutation = new GraphQLObjectType({
                                 name: designation
                             }
                         }),
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
 
                     return createdDesignation;
@@ -6001,19 +6034,18 @@ const Mutation = new GraphQLObjectType({
                     });
                     return createdDesignation;
                 }
-
             }
         },
 
         updateSingleDesignation: {
             type: DesignationType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const updatedDesignation = await prisma.designation.update({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -6026,23 +6058,24 @@ const Mutation = new GraphQLObjectType({
         deleteSingleDesignation: {
             type: DesignationType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const deletedDesignation = await prisma.designation.delete({
                     where: {
-                        id: parseInt(args.id),
+                        id: args.id,
                     },
                 });
                 return deletedDesignation;
             }
         },
+
         // Create a new role
         createSingleRole: {
             type: RoleType,
             args: {
                 query: { type: GraphQLString },
                 name: { type: GraphQLString },
-                ids: { type: new GraphQLList(GraphQLInt) },
+                ids: { type: new GraphQLList(GraphQLString) },
                 roles: { type: new GraphQLList(GraphQLString) }
             },
             async resolve(parent, args) {
@@ -6058,7 +6091,7 @@ const Mutation = new GraphQLObjectType({
                 } else if (args.query === "createmany") {
                     const createdRole = await prisma.role.createMany({
                         data: args.roles,
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
                     return createdRole;
                 } else {
@@ -6076,13 +6109,13 @@ const Mutation = new GraphQLObjectType({
         updateSingleRole: {
             type: RoleType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const updatedRole = await prisma.role.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -6097,13 +6130,13 @@ const Mutation = new GraphQLObjectType({
         deleteSingleRole: {
             type: RoleType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             },
             async resolve(parent, args) {
                 const deletedRole = await prisma.role.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         status: args.status,
@@ -6117,9 +6150,9 @@ const Mutation = new GraphQLObjectType({
             type: AggregationType,
             args: {
                 query: { type: GraphQLString },
-                permissionIds: { type: new GraphQLList(GraphQLInt) },
-                roleId: { type: GraphQLInt },
-                rolePermissionIds: { type: new GraphQLList(GraphQLInt) }
+                permissionIds: { type: new GraphQLList(GraphQLString) },
+                roleId: { type: GraphQLString },
+                rolePermissionIds: { type: new GraphQLList(GraphQLString) }
             },
             async resolve(parent, args) {
                 if (args.query === "deletemany") {
@@ -6145,7 +6178,7 @@ const Mutation = new GraphQLObjectType({
                     });
                     const createdRolePermission = await prisma.rolePermission.createMany({
                         data: data,
-                        skipDuplicates: true,
+                        // skipDuplicates: true,
                     });
 
                     return {
@@ -6160,13 +6193,13 @@ const Mutation = new GraphQLObjectType({
         updateRolePermission: {
             type: RolePermissionType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             },
             async resolve(parent, args) {
                 const updatedRolePermission = await prisma.rolePermission.update({
                     where: {
-                        id: Number(args.id)
+                        id: args.id
                     },
                     data: {
                         status: args.status
@@ -6179,12 +6212,12 @@ const Mutation = new GraphQLObjectType({
         deleteSingleRolePermission: {
             type: RolePermissionType,
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLString }
             },
             async resolve(parent, args) {
                 const deletedRolePermission = await prisma.rolePermission.delete({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                 });
                 return deletedRolePermission;
@@ -6195,7 +6228,7 @@ const Mutation = new GraphQLObjectType({
         createSingleAccount: {
             type: SubAccountType,
             args: {
-                account_id: { type: GraphQLInt },
+                account_id: { type: GraphQLString },
                 name: { type: GraphQLString }
             },
             async resolve(parent, args) {
@@ -6204,7 +6237,7 @@ const Mutation = new GraphQLObjectType({
                         name: args.name,
                         account: {
                             connect: {
-                                id: Number(args.account_id),
+                                id: args.account_id,
                             },
                         },
                     },
@@ -6216,19 +6249,19 @@ const Mutation = new GraphQLObjectType({
         updateSingleAccount: {
             type: AccountType,
             args: {
-                id: { type: GraphQLInt },
-                account_id: { type: GraphQLInt },
+                id: { type: GraphQLString },
+                account_id: { type: GraphQLString },
                 name: { type: GraphQLString }
             }, async resolve(parent, args) {
                 const updatedAccount = await prisma.subAccount.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
                         account: {
                             connect: {
-                                id: Number(args.account_id),
+                                id: args.account_id,
                             },
                         },
                     },
@@ -6236,15 +6269,17 @@ const Mutation = new GraphQLObjectType({
 
                 return updatedAccount;
             }
-        }, deleteSingleAccount: {
+        },
+
+        deleteSingleAccount: {
             type: AccountType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             }, async resolve(parent, args) {
                 const deletedSubAccount = await prisma.subAccount.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         status: args.status,
@@ -6259,8 +6294,8 @@ const Mutation = new GraphQLObjectType({
             type: TransactionType,
             args: {
                 date: { type: GraphQLString },
-                debit_id: { type: GraphQLInt },
-                credit_id: { type: GraphQLInt },
+                debit_id: { type: GraphQLString },
+                credit_id: { type: GraphQLString },
                 particulars: { type: GraphQLString },
                 amount: { type: GraphQLFloat }
             },
@@ -6272,12 +6307,12 @@ const Mutation = new GraphQLObjectType({
                         date: new Date(date),
                         debit: {
                             connect: {
-                                id: Number(args.debit_id),
+                                id: args.debit_id,
                             },
                         },
                         credit: {
                             connect: {
-                                id: Number(args.credit_id),
+                                id: args.credit_id,
                             },
                         },
                         particulars: args.particulars,
@@ -6287,10 +6322,11 @@ const Mutation = new GraphQLObjectType({
                 return createdTransaction;
             },
         },
+
         updateSingleTransaction: {
             type: TransactionType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 date: { type: GraphQLString },
                 particulars: { type: GraphQLString },
                 amount: { type: GraphQLFloat }
@@ -6299,7 +6335,7 @@ const Mutation = new GraphQLObjectType({
                 const date = new Date(args.date).toISOString().split("T")[0];
                 const updatedTransaction = await prisma.transaction.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         date: new Date(date),
@@ -6313,15 +6349,16 @@ const Mutation = new GraphQLObjectType({
                 return updatedTransaction;
             }
         },
+
         deleteSingleTransaction: {
             type: TransactionType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             }, async resolve(parent, args) {
                 const deletedTransaction = await prisma.transaction.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         status: args.status,
@@ -6336,7 +6373,7 @@ const Mutation = new GraphQLObjectType({
             type: ReturnPurchaseInvoiceType,
             args: {
                 returnPurchaseInvoiceProduct: { type: new GraphQLList(IncomeReturnPurchaseInvoiceProductType) },
-                purchaseInvoice_id: { type: GraphQLInt },
+                purchaseInvoice_id: { type: GraphQLString },
                 date: { type: GraphQLString },
                 note: { type: GraphQLString }
             },
@@ -6353,20 +6390,23 @@ const Mutation = new GraphQLObjectType({
                 // get single purchase invoice information with products
                 const singlePurchaseInvoice = await prisma.purchaseInvoice.findUnique({
                     where: {
-                        id: Number(args.purchaseInvoice_id),
+                        id: args.purchaseInvoice_id,
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // transactions of the paid amount
                 const transactions2 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase",
-                        related_id: Number(args.purchaseInvoice_id),
+                        related_id: args.purchaseInvoice_id,
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -6375,21 +6415,21 @@ const Mutation = new GraphQLObjectType({
                 const transactions3 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase",
-                        related_id: Number(args.purchaseInvoice_id),
-                        credit_id: 13,
+                        related_id: args.purchaseInvoice_id,
+                        credit_id: subAccounts[12].id,
                     },
                 });
                 // transactions of the return purchase invoice's amount
                 const transactions4 = await prisma.transaction.findMany({
                     where: {
                         type: "purchase_return",
-                        related_id: Number(args.purchaseInvoice_id),
+                        related_id: args.purchaseInvoice_id,
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -6397,7 +6437,7 @@ const Mutation = new GraphQLObjectType({
                 // get return purchase invoice information with products of this purchase invoice
                 const returnPurchaseInvoice = await prisma.returnPurchaseInvoice.findMany({
                     where: {
-                        purchaseInvoice_id: Number(args.purchaseInvoice_id),
+                        purchaseInvoice_id: args.purchaseInvoice_id,
                     },
                     include: {
                         returnPurchaseInvoiceProduct: {
@@ -6452,7 +6492,7 @@ const Mutation = new GraphQLObjectType({
                             total_amount: totalPurchasePrice,
                             purchaseInvoice: {
                                 connect: {
-                                    id: Number(args.purchaseInvoice_id),
+                                    id: args.purchaseInvoice_id,
                                 },
                             },
                             note: args.note,
@@ -6461,7 +6501,7 @@ const Mutation = new GraphQLObjectType({
                                 create: args.returnPurchaseInvoiceProduct.map((product) => ({
                                     product: {
                                         connect: {
-                                            id: Number(product.product_id),
+                                            id: product.product_id,
                                         },
                                     },
                                     product_quantity: Number(product.product_quantity),
@@ -6479,12 +6519,12 @@ const Mutation = new GraphQLObjectType({
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 5,
-                            credit_id: 3,
+                            debit_id: subAccounts[4].id,
+                            credit_id: subAccounts[2].id,
                             amount: parseFloat(totalPurchasePrice),
                             particulars: `Account payable (due) reduced on Purchase return invoice #${createdReturnPurchaseInvoice.id} of purchase invoice #${args.purchaseInvoice_id}`,
                             type: "purchase_return",
-                            related_id: Number(args.purchaseInvoice_id),
+                            related_id: args.purchaseInvoice_id,
                         },
                     });
                 }
@@ -6493,23 +6533,23 @@ const Mutation = new GraphQLObjectType({
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 5,
-                            credit_id: 3,
+                            debit_id: subAccounts[4].id,
+                            credit_id: subAccounts[2].id,
                             amount: parseFloat(dueAmount),
                             particulars: `Account payable (due) reduced on Purchase return invoice #${createdReturnPurchaseInvoice.id} of purchase invoice #${args.purchaseInvoice_id}`,
                             type: "purchase_return",
-                            related_id: Number(args.purchaseInvoice_id),
+                            related_id: args.purchaseInvoice_id,
                         },
                     });
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 1,
-                            credit_id: 3,
+                            debit_id: subAccounts[0].id,
+                            credit_id: subAccounts[2].id,
                             amount: parseFloat(totalPurchasePrice - dueAmount),
                             particulars: `Cash receive on Purchase return invoice #${createdReturnPurchaseInvoice.id} of purchase invoice #${args.purchaseInvoice_id}`,
                             type: "purchase_return",
-                            related_id: Number(args.purchaseInvoice_id),
+                            related_id: args.purchaseInvoice_id,
                         },
                     });
                 }
@@ -6517,7 +6557,7 @@ const Mutation = new GraphQLObjectType({
                 args.returnPurchaseInvoiceProduct.forEach(async (item) => {
                     await prisma.product.update({
                         where: {
-                            id: Number(item.product_id),
+                            id: item.product_id,
                         },
                         data: {
                             quantity: {
@@ -6534,7 +6574,7 @@ const Mutation = new GraphQLObjectType({
         updateSingleReturnPurchaseInvoice: {
             type: ReturnPurchaseInvoiceType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 name: { type: GraphQLString },
                 quantity: { type: GraphQLInt },
                 purchase_price: { type: GraphQLFloat },
@@ -6543,7 +6583,7 @@ const Mutation = new GraphQLObjectType({
             }, async resolve(parent, args) {
                 const updatedProduct = await prisma.returnPurchaseInvoice.update({
                     where: {
-                        id: Number(args.id),
+                        id: args.id,
                     },
                     data: {
                         name: args.name,
@@ -6561,7 +6601,7 @@ const Mutation = new GraphQLObjectType({
         deleteSingleReturnPurchaseInvoice: {
             type: ReturnPurchaseInvoiceType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean },
             },
             async resolve(parent, args) {
@@ -6569,7 +6609,7 @@ const Mutation = new GraphQLObjectType({
                 const returnPurchaseInvoice = await prisma.returnPurchaseInvoice.findUnique(
                     {
                         where: {
-                            id: Number(args.id),
+                            id: args.id,
                         },
                         include: {
                             returnPurchaseInvoiceProduct: {
@@ -6584,7 +6624,7 @@ const Mutation = new GraphQLObjectType({
                 returnPurchaseInvoice.returnPurchaseInvoiceProduct.forEach(async (item) => {
                     await prisma.product.update({
                         where: {
-                            id: Number(item.product_id),
+                            id: item.product_id,
                         },
                         data: {
                             quantity: {
@@ -6599,7 +6639,7 @@ const Mutation = new GraphQLObjectType({
                         // purchase invoice delete
                         prisma.returnPurchaseInvoice.update({
                             where: {
-                                id: Number(args.id),
+                                id: args.id,
                             },
                             data: {
                                 status: args.status,
@@ -6616,7 +6656,7 @@ const Mutation = new GraphQLObjectType({
             type: ReturnSaleInvoiceType,
             args: {
                 returnSaleInvoiceProduct: { type: new GraphQLList(IncomeReturnSaleInvoiceProductType) },
-                saleInvoice_id: { type: GraphQLInt },
+                saleInvoice_id: { type: GraphQLString },
                 date: { type: GraphQLString },
                 note: { type: GraphQLString }
             },
@@ -6649,7 +6689,7 @@ const Mutation = new GraphQLObjectType({
                 // calculate the due before return sale invoice creation
                 const singleSaleInvoice = await prisma.saleInvoice.findUnique({
                     where: {
-                        id: Number(args.saleInvoice_id),
+                        id: args.saleInvoice_id,
                     },
                     include: {
                         saleInvoiceProduct: {
@@ -6670,13 +6710,13 @@ const Mutation = new GraphQLObjectType({
                 const transactions2 = await prisma.transaction.findMany({
                     where: {
                         type: "sale",
-                        related_id: Number(args.saleInvoice_id),
+                        related_id: args.saleInvoice_id,
                         OR: [
                             {
-                                debit_id: 1,
+                                debit_id: subAccounts[0].id,
                             },
                             {
-                                debit_id: 2,
+                                debit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -6696,7 +6736,7 @@ const Mutation = new GraphQLObjectType({
                 // transaction of the total return amount
                 const returnSaleInvoice = await prisma.returnSaleInvoice.findMany({
                     where: {
-                        saleInvoice_id: Number(args.saleInvoice_id),
+                        saleInvoice_id: args.saleInvoice_id,
                     },
                     include: {
                         returnSaleInvoiceProduct: {
@@ -6710,8 +6750,8 @@ const Mutation = new GraphQLObjectType({
                 const transactions3 = await prisma.transaction.findMany({
                     where: {
                         type: "sale",
-                        related_id: Number(args.saleInvoice_id),
-                        debit_id: 14,
+                        related_id: args.saleInvoice_id,
+                        debit_id: subAccounts[13].id,
                     },
                     include: {
                         debit: {
@@ -6726,18 +6766,21 @@ const Mutation = new GraphQLObjectType({
                         },
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // calculate the total amount return back to customer for return sale invoice from transactions
                 // transactions of the paid amount
                 const transactions4 = await prisma.transaction.findMany({
                     where: {
                         type: "sale_return",
-                        related_id: Number(args.saleInvoice_id),
+                        related_id: args.saleInvoice_id,
                         OR: [
                             {
-                                credit_id: 1,
+                                credit_id: subAccounts[0].id,
                             },
                             {
-                                credit_id: 2,
+                                credit_id: subAccounts[1].id,
                             },
                         ],
                     },
@@ -6798,7 +6841,7 @@ const Mutation = new GraphQLObjectType({
                         total_amount: totalSalePrice,
                         saleInvoice: {
                             connect: {
-                                id: Number(args.saleInvoice_id),
+                                id: args.saleInvoice_id,
                             },
                         },
                         note: args.note,
@@ -6807,7 +6850,7 @@ const Mutation = new GraphQLObjectType({
                             create: args.returnSaleInvoiceProduct.map((product) => ({
                                 product: {
                                     connect: {
-                                        id: Number(product.product_id),
+                                        id: product.product_id,
                                     },
                                 },
                                 product_quantity: Number(product.product_quantity),
@@ -6823,12 +6866,12 @@ const Mutation = new GraphQLObjectType({
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 8,
-                            credit_id: 4,
+                            debit_id: subAccounts[7].id,
+                            credit_id: subAccounts[3].id,
                             amount: parseFloat(totalSalePrice),
                             particulars: `Account Receivable on Sale return invoice #${createdReturnSaleInvoice.id} of sale invoice #${args.saleInvoice_id}`,
                             type: "sale_return",
-                            related_id: Number(args.saleInvoice_id),
+                            related_id: args.saleInvoice_id
                         },
                     });
                 }
@@ -6839,23 +6882,23 @@ const Mutation = new GraphQLObjectType({
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 8,
-                            credit_id: 4,
+                            debit_id: subAccounts[7].id,
+                            credit_id: subAccounts[3].id,
                             amount: parseFloat(dueAmount),
                             particulars: `Account Receivable on Sale return invoice #${createdReturnSaleInvoice.id} of sale invoice #${args.saleInvoice_id}`,
                             type: "sale_return",
-                            related_id: Number(args.saleInvoice_id),
+                            related_id: args.saleInvoice_id,
                         },
                     });
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 8,
-                            credit_id: 1,
+                            debit_id: subAccounts[7].id,
+                            credit_id: subAccounts[0].id,
                             amount: parseFloat(totalSalePrice - dueAmount),
                             particulars: `Cash paid on Sale return invoice #${createdReturnSaleInvoice.id} of sale invoice #${args.saleInvoice_id}`,
                             type: "sale_return",
-                            related_id: Number(args.saleInvoice_id),
+                            related_id: args.saleInvoice_id
                         },
                     });
                 }
@@ -6863,8 +6906,8 @@ const Mutation = new GraphQLObjectType({
                 await prisma.transaction.create({
                     data: {
                         date: new Date(date),
-                        debit_id: 3,
-                        credit_id: 9,
+                        debit_id: subAccounts[2].id,
+                        credit_id: subAccounts[8].id,
                         amount: parseFloat(totalPurchasePrice),
                         particulars: `Cost of sales reduce on Sale return Invoice #${createdReturnSaleInvoice.id} of sale invoice #${args.saleInvoice_id}`,
                         type: "sale_return",
@@ -6875,7 +6918,7 @@ const Mutation = new GraphQLObjectType({
                 args.returnSaleInvoiceProduct.forEach(async (item) => {
                     await prisma.product.update({
                         where: {
-                            id: Number(item.product_id),
+                            id: item.product_id,
                         },
                         data: {
                             quantity: {
@@ -6888,7 +6931,7 @@ const Mutation = new GraphQLObjectType({
                 const returnSaleInvoiceProfit = totalSalePrice - totalPurchasePrice;
                 await prisma.saleInvoice.update({
                     where: {
-                        id: Number(args.saleInvoice_id),
+                        id: args.saleInvoice_id,
                     },
                     data: {
                         profit: {
@@ -6904,13 +6947,13 @@ const Mutation = new GraphQLObjectType({
         deleteSingleReturnSaleInvoice: {
             type: ReturnSaleInvoiceType,
             args: {
-                id: { type: GraphQLInt },
+                id: { type: GraphQLString },
                 status: { type: GraphQLBoolean }
             }, async resolve(parent, args) {
                 // get purchase invoice details
                 const returnSaleInvoice = await prisma.returnSaleInvoice.findUnique({
                     where: {
-                        id: Number(args.id),
+                        id: args.id
                     },
                     include: {
                         returnSaleInvoiceProduct: {
@@ -6924,7 +6967,7 @@ const Mutation = new GraphQLObjectType({
                 returnSaleInvoice.returnSaleInvoiceProduct.forEach(async (item) => {
                     await prisma.product.update({
                         where: {
-                            id: Number(item.product_id),
+                            id: item.product_id
                         },
                         data: {
                             quantity: {
@@ -6939,7 +6982,7 @@ const Mutation = new GraphQLObjectType({
                         // purchase invoice delete
                         prisma.returnSaleInvoice.update({
                             where: {
-                                id: Number(args.id),
+                                id: args.id
                             },
                             data: {
                                 status: args.status,
@@ -6956,22 +6999,23 @@ const Mutation = new GraphQLObjectType({
             args: {
                 date: { type: GraphQLString },
                 amount: { type: GraphQLFloat },
-                purchase_invoice_no: { type: GraphQLInt },
+                purchase_invoice_no: { type: GraphQLString },
                 discount: { type: GraphQLFloat }
             },
             async resolve(parent, args) {
                 // convert all incoming data to a specific format.
                 const date = new Date(args.date).toISOString().split("T")[0];
                 // paid amount against purchase invoice using a transaction
+                const subAccounts = await prisma.subAccount.findMany();
                 const transaction1 = await prisma.transaction.create({
                     data: {
                         date: new Date(date),
-                        debit_id: 5,
-                        credit_id: 1,
+                        debit_id: subAccounts[4].id,
+                        credit_id: subAccounts[0].id,
                         amount: parseFloat(args.amount),
                         particulars: `Due pay of Purchase Invoice #${args.purchase_invoice_no}`,
                         type: "purchase",
-                        related_id: parseInt(args.purchase_invoice_no),
+                        related_id: args.purchase_invoice_no
                     },
                 });
                 // discount earned using a transaction
@@ -6980,12 +7024,12 @@ const Mutation = new GraphQLObjectType({
                     transaction2 = await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 5,
-                            credit_id: 13,
+                            debit_id: subAccounts[4].id,
+                            credit_id: subAccounts[12].id,
                             amount: parseFloat(args.discount),
                             particulars: `Discount earned of Purchase Invoice #${args.purchase_invoice_no}`,
                             type: "purchase",
-                            related_id: parseInt(args.purchase_invoice_no),
+                            related_id: args.purchase_invoice_no
                         },
                     });
                 }
@@ -6999,22 +7043,23 @@ const Mutation = new GraphQLObjectType({
             args: {
                 date: { type: GraphQLString },
                 amount: { type: GraphQLFloat },
-                sale_invoice_no: { type: GraphQLInt },
+                sale_invoice_no: { type: GraphQLString },
                 discount: { type: GraphQLFloat }
             },
             async resolve(parent, args) {
                 // convert all incoming data to a specific format.
                 const date = new Date(args.date).toISOString().split("T")[0];
                 // received paid amount against sale invoice using a transaction
+                const subAccounts = await prisma.subAccount.findMany();
                 const transaction1 = await prisma.transaction.create({
                     data: {
                         date: new Date(date),
-                        debit_id: 1,
-                        credit_id: 4,
+                        debit_id: subAccounts[0].id,
+                        credit_id: subAccounts[3].id,
                         amount: parseFloat(args.amount),
                         particulars: `Received payment of Sale Invoice #${args.sale_invoice_no}`,
                         type: "sale",
-                        related_id: parseInt(args.sale_invoice_no),
+                        related_id: args.sale_invoice_no
                     },
                 });
                 // discount given using a transaction
@@ -7023,19 +7068,19 @@ const Mutation = new GraphQLObjectType({
                     transaction2 = await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 14,
-                            credit_id: 4,
+                            debit_id: subAccounts[13].id,
+                            credit_id: subAccounts[3].id,
                             amount: parseFloat(args.discount),
                             particulars: `Discount given of Sale Invoice #${args.sale_invoice_no}`,
                             type: "sale",
-                            related_id: parseInt(args.sale_invoice_no),
+                            related_id: args.sale_invoice_no
                         },
                     });
                 }
                 // decrease sale invoice profit by discount value
                 const saleInvoice = await prisma.saleInvoice.update({
                     where: {
-                        id: parseInt(args.sale_invoice_no),
+                        id: args.sale_invoice_no
                     },
                     data: {
                         profit: {
@@ -7056,8 +7101,8 @@ const Mutation = new GraphQLObjectType({
                 date: { type: GraphQLString },
                 discount: { type: GraphQLFloat },
                 paid_amount: { type: GraphQLFloat },
-                customer_id: { type: GraphQLInt },
-                user_id: { type: GraphQLInt },
+                customer_id: { type: GraphQLString },
+                user_id: { type: GraphQLString },
                 note: { type: GraphQLString },
             },
             async resolve(parent, args) {
@@ -7101,12 +7146,12 @@ const Mutation = new GraphQLObjectType({
                             parseFloat(args.paid_amount),
                         customer: {
                             connect: {
-                                id: Number(args.customer_id),
+                                id: args.customer_id
                             },
                         },
                         user: {
                             connect: {
-                                id: Number(args.user_id),
+                                id: args.user_id
                             },
                         },
                         note: args.note,
@@ -7115,7 +7160,7 @@ const Mutation = new GraphQLObjectType({
                             create: args.saleInvoiceProduct.map((product) => ({
                                 product: {
                                     connect: {
-                                        id: Number(product.product_id),
+                                        id: product.product_id
                                     },
                                 },
                                 product_quantity: Number(product.product_quantity),
@@ -7124,13 +7169,16 @@ const Mutation = new GraphQLObjectType({
                         },
                     },
                 });
+
+                const subAccounts = await prisma.subAccount.findMany();
+
                 // new transactions will be created as journal entry for paid amount
                 if (args.paid_amount > 0) {
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 1,
-                            credit_id: 8,
+                            debit_id: subAccounts[0].id,
+                            credit_id: subAccounts[7].id,
                             amount: parseFloat(args.paid_amount),
                             particulars: `Cash receive on Sale Invoice #${createdInvoice.id}`,
                             type: "sale",
@@ -7148,8 +7196,8 @@ const Mutation = new GraphQLObjectType({
                     await prisma.transaction.create({
                         data: {
                             date: new Date(date),
-                            debit_id: 4,
-                            credit_id: 8,
+                            debit_id: subAccounts[3].id,
+                            credit_id: subAccounts[7].id,
                             amount: due_amount,
                             particulars: `Due on Sale Invoice #${createdInvoice.id}`,
                             type: "sale",
@@ -7161,8 +7209,8 @@ const Mutation = new GraphQLObjectType({
                 await prisma.transaction.create({
                     data: {
                         date: new Date(date),
-                        debit_id: 9,
-                        credit_id: 3,
+                        debit_id: subAccounts[8].id,
+                        credit_id: subAccounts[2].id,
                         amount: totalPurchasePrice,
                         particulars: `Cost of sales on Sale Invoice #${createdInvoice.id}`,
                         type: "sale",
@@ -7173,7 +7221,7 @@ const Mutation = new GraphQLObjectType({
                 args.saleInvoiceProduct.forEach(async (item) => {
                     await prisma.product.update({
                         where: {
-                            id: Number(item.product_id),
+                            id: item.product_id
                         },
                         data: {
                             quantity: {

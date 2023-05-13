@@ -3,18 +3,18 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model user {
-  id             Int           @id @default(autoincrement())
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
   username       String        @unique
   password       String
   role           String
   email          String?       @unique
   salary         Int?
-  designation_id Int?
+  designation_id String?       @db.ObjectId
   join_date      DateTime?
   leave_date     DateTime?
   id_no          String?       @unique
@@ -31,7 +31,7 @@ model user {
 }
 
 model designation {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -39,13 +39,13 @@ model designation {
 }
 
 model product {
-  id                           Int                            @id @default(autoincrement())
+  id                           String                         @id @default(auto()) @map("_id") @db.ObjectId
   name                         String                         @unique
   quantity                     Int
   purchase_price               Float
   sale_price                   Float
   imageName                    String?
-  product_category_id          Int?
+  product_category_id          String?                        @db.ObjectId
   unit_measurement             Float?
   unit_type                    String?
   sku                          String?                        @unique
@@ -61,7 +61,7 @@ model product {
 }
 
 model product_category {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -69,7 +69,7 @@ model product_category {
 }
 
 model supplier {
-  id              Int               @id @default(autoincrement())
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   phone           String            @unique
   address         String
@@ -80,13 +80,13 @@ model supplier {
 }
 
 model purchaseInvoice {
-  id                     Int                      @id @default(autoincrement())
+  id                     String                   @id @default(auto()) @map("_id") @db.ObjectId
   date                   DateTime
   total_amount           Float
   discount               Float
   paid_amount            Float
   due_amount             Float
-  supplier_id            Int
+  supplier_id            String                   @db.ObjectId
   note                   String?
   supplier_memo_no       String?
   created_at             DateTime                 @default(now())
@@ -97,9 +97,9 @@ model purchaseInvoice {
 }
 
 model purchaseInvoiceProduct {
-  id                     Int             @id @default(autoincrement())
-  product_id             Int
-  invoice_id             Int
+  id                     String          @id @default(auto()) @map("_id") @db.ObjectId
+  product_id             String          @db.ObjectId
+  invoice_id             String          @db.ObjectId
   product_quantity       Int
   product_purchase_price Float
   created_at             DateTime        @default(now())
@@ -109,7 +109,7 @@ model purchaseInvoiceProduct {
 }
 
 model customer {
-  id          Int           @id @default(autoincrement())
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   phone       String        @unique
   address     String
@@ -120,15 +120,15 @@ model customer {
 }
 
 model saleInvoice {
-  id                 Int                  @id @default(autoincrement())
+  id                 String               @id @default(auto()) @map("_id") @db.ObjectId
   date               DateTime
   total_amount       Float
   discount           Float
   paid_amount        Float
   due_amount         Float
   profit             Float
-  customer_id        Int
-  user_id            Int
+  customer_id        String               @db.ObjectId
+  user_id            String               @db.ObjectId
   note               String?
   created_at         DateTime             @default(now())
   updated_at         DateTime             @updatedAt
@@ -140,9 +140,9 @@ model saleInvoice {
 }
 
 model saleInvoiceProduct {
-  id                 Int         @id @default(autoincrement())
-  product_id         Int
-  invoice_id         Int
+  id                 String      @id @default(auto()) @map("_id") @db.ObjectId
+  product_id         String      @db.ObjectId
+  invoice_id         String      @db.ObjectId
   product_quantity   Int
   product_sale_price Float
   created_at         DateTime    @default(now())
@@ -152,14 +152,14 @@ model saleInvoiceProduct {
 }
 
 model transaction {
-  id            Int          @id @default(autoincrement())
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
   date          DateTime
-  debit_id      Int
-  credit_id     Int
+  debit_id      String       @db.ObjectId
+  credit_id     String       @db.ObjectId
   particulars   String
   amount        Float
   type          String?
-  related_id    Int?
+  related_id    String?      @db.ObjectId
   status        Boolean      @default(true)
   created_at    DateTime     @default(now())
   updated_at    DateTime     @updatedAt
@@ -170,7 +170,7 @@ model transaction {
 }
 
 model role {
-  id             Int              @id @default(autoincrement())
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
   name           String           @unique
   status         Boolean          @default(true)
   createdAt      DateTime         @default(now())
@@ -179,7 +179,7 @@ model role {
 }
 
 model permission {
-  id             Int              @id @default(autoincrement())
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
   name           String           @unique
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
@@ -187,9 +187,9 @@ model permission {
 }
 
 model rolePermission {
-  id            Int        @id @default(autoincrement())
-  role_id       Int
-  permission_id Int
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  role_id       String     @db.ObjectId
+  permission_id String     @db.ObjectId
   status        Boolean    @default(true)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
@@ -200,16 +200,16 @@ model rolePermission {
 }
 
 model account {
-  id         Int          @id @default(autoincrement())
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
   name       String       @unique
   type       String
   subAccount subAccount[]
 }
 
 model subAccount {
-  id         Int           @id @default(autoincrement())
+  id         String        @id @default(auto()) @map("_id") @db.ObjectId
   name       String        @unique
-  account_id Int
+  account_id String        @db.ObjectId
   status     Boolean       @default(true)
   account    account       @relation(fields: [account_id], references: [id])
   credit     transaction[] @relation("credit")
@@ -217,11 +217,11 @@ model subAccount {
 }
 
 model returnPurchaseInvoice {
-  id                           Int                            @id @default(autoincrement())
+  id                           String                         @id @default(auto()) @map("_id") @db.ObjectId
   date                         DateTime
   total_amount                 Float
   note                         String?
-  purchaseInvoice_id           Int
+  purchaseInvoice_id           String                         @db.ObjectId
   status                       Boolean                        @default(true)
   created_at                   DateTime                       @default(now())
   updated_at                   DateTime                       @updatedAt
@@ -230,9 +230,9 @@ model returnPurchaseInvoice {
 }
 
 model returnPurchaseInvoiceProduct {
-  id                     Int                   @id @default(autoincrement())
-  product_id             Int
-  invoice_id             Int
+  id                     String                @id @default(auto()) @map("_id") @db.ObjectId
+  product_id             String                @db.ObjectId
+  invoice_id             String                @db.ObjectId
   product_quantity       Int
   product_purchase_price Float
   created_at             DateTime              @default(now())
@@ -242,11 +242,11 @@ model returnPurchaseInvoiceProduct {
 }
 
 model returnSaleInvoice {
-  id                       Int                        @id @default(autoincrement())
+  id                       String                     @id @default(auto()) @map("_id") @db.ObjectId
   date                     DateTime
   total_amount             Float
   note                     String?
-  saleInvoice_id           Int
+  saleInvoice_id           String                     @db.ObjectId
   status                   Boolean                    @default(true)
   created_at               DateTime                   @default(now())
   updated_at               DateTime                   @updatedAt
@@ -255,9 +255,9 @@ model returnSaleInvoice {
 }
 
 model returnSaleInvoiceProduct {
-  id                 Int               @id @default(autoincrement())
-  product_id         Int
-  invoice_id         Int
+  id                 String            @id @default(auto()) @map("_id") @db.ObjectId
+  product_id         String            @db.ObjectId
+  invoice_id         String            @db.ObjectId
   product_quantity   Int
   product_sale_price Float
   created_at         DateTime          @default(now())
@@ -267,7 +267,7 @@ model returnSaleInvoiceProduct {
 }
 
 model appSetting {
-  id           Int    @id @default(autoincrement())
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
   company_name String
   tag_line     String
   address      String

@@ -3,40 +3,6 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// const endpoints = [
-//   "paymentPurchaseInvoice",
-//   "paymentSaleInvoice",
-//   "returnSaleInvoice",
-//   "purchaseInvoice",
-//   "returnPurchaseInvoice",
-//   "rolePermission",
-//   "saleInvoice",
-//   "transaction",
-//   "permission",
-//   "dashboard",
-//   "customer",
-//   "supplier",
-//   "product",
-//   "user",
-//   "role",
-//   "designation",
-//   "productCategory",
-//   "account",
-//   "setting",
-// ];
-
-// const permissionTypes = ["create", "read", "update", "delete"];
-
-// create permissions for each endpoint by combining permission type and endpoint name
-// const permissions = endpoints.reduce((acc, cur) => {
-//   const permission = permissionTypes.map((type) => {
-//     return `${type}-${cur}`;
-//   });
-//   return [...acc, ...permission];
-// }, []);
-
-// console.log("permissions", permissions, permissions.length);
-
 const permissions = [
   "createProduct",
   "viewProduct",
@@ -106,7 +72,7 @@ const permissions = [
 
 const roles = ["admin", "staff"];
 
-const account = [
+const accounts = [
   { name: "Asset", type: "Asset" },
   { name: "Liability", type: "Liability" },
   { name: "Capital", type: "Owner's Equity" },
@@ -115,7 +81,7 @@ const account = [
   { name: "Expense", type: "Owner's Equity" },
 ];
 
-const subAccount = [
+const subAccounts = [
   { account_id: 1, name: "Cash" }, //1
   { account_id: 1, name: "Bank" }, //2
   { account_id: 1, name: "Inventory" }, //3
@@ -145,6 +111,7 @@ const settings = {
 async function main() {
   const adminHash = await bcrypt.hash("admin", saltRounds);
   const staffHash = await bcrypt.hash("staff", saltRounds);
+
   await prisma.user.create({
     data: {
       username: "admin",
@@ -152,6 +119,7 @@ async function main() {
       role: "admin",
     },
   });
+
   await prisma.user.create({
     data: {
       username: "staff",
@@ -159,42 +127,54 @@ async function main() {
       role: "staff",
     },
   });
-  await prisma.permission.createMany({
-    data: permissions.map((permission) => {
-      return {
-        name: permission,
-      };
-    }),
+
+  const adminRole = await prisma.role.create({
+    data: {
+      name: roles[0]
+    }
   });
-  await prisma.role.createMany({
-    data: roles.map((role) => {
-      return {
-        name: role,
-      };
-    }),
-  });
-  for (let i = 1; i <= permissions.length; i++) {
+
+  await prisma.role.create({
+    data: {
+      name: roles[1]
+    }
+  })
+
+  for (let i = 0; i < permissions.length; i++) {
+    const permission = await prisma.permission.create({
+      data: {
+        name: permissions[i]
+      }
+    });
+
     await prisma.rolePermission.create({
       data: {
-        role: {
-          connect: {
-            id: 1,
-          },
-        },
-        permission: {
-          connect: {
-            id: i,
-          },
-        },
+        role_id: adminRole.id,
+        permission_id: permission.id
       },
     });
   }
-  await prisma.account.createMany({
-    data: account,
-  });
-  await prisma.subAccount.createMany({
-    data: subAccount,
-  });
+
+  for (let i = 0; i < accounts.length; i++) {
+    const account = await prisma.account.create({
+      data: {
+        name: accounts[i].name,
+        type: accounts[i].type
+      }
+    });
+
+    for (let j = 0; j < subAccounts.length; j++) {
+      if (subAccounts[j].account_id === (i + 1)) {
+        await prisma.subAccount.create({
+          data: {
+            account_id: account.id,
+            name: subAccounts[j].name
+          }
+        })
+      }
+    }
+  }
+
   await prisma.appSetting.create({
     data: settings,
   });
