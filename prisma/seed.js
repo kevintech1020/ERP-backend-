@@ -117,6 +117,9 @@ async function main() {
       username: "admin",
       password: adminHash,
       role: "admin",
+      email: "admin@admin.com",
+      id_no: "admin_id_no",
+      phone: "123"
     },
   });
 
@@ -125,6 +128,9 @@ async function main() {
       username: "staff",
       password: staffHash,
       role: "staff",
+      email: "staff@staff.com",
+      id_no: "staff_id_no",
+      phone: "456"
     },
   });
 

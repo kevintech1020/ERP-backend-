@@ -358,6 +358,14 @@ const CompletedTransactionType = new GraphQLObjectType({
     }
 });
 
+const PaymentType = new GraphQLObjectType({
+    name: "PaymentType",
+    fields: {
+        id: { type: GraphQLString },
+        name: { type: GraphQLString }
+    }
+});
+
 const PurchaseInvoiceType = new GraphQLObjectType({
     name: "PurchaseInvoice",
     fields: () => ({
@@ -5260,6 +5268,28 @@ const RootQuery = new GraphQLObjectType({
                 });
                 return allSalesInvoice;
             }
+        },
+
+        getSinglePaymentType: {
+            type: PaymentType,
+            args: {
+                id: { type: GraphQLString }
+            }, async resolve(parent, args) {
+                const singlePaymentType = await prisma.paymentType.findUnique({
+                    where: {
+                        id: args.id,
+                    }
+                });
+                return singlePaymentType;
+            }
+        },
+
+        getAllPaymentTypes: {
+            type: new GraphQLList(PaymentType),
+            async resolve(parent, args) {
+                const allPaymentTypes = await prisma.paymentType.findMany();
+                return allPaymentTypes;
+            }
         }
     }
 });
@@ -7233,6 +7263,40 @@ const Mutation = new GraphQLObjectType({
 
                 return createdInvoice;
             },
+        },
+
+        createPaymentType: {
+            type: PaymentType,
+            args: {
+                name: { type: GraphQLString }
+            },
+            async resolve(parent, args) {
+                const createdPaymentType = await prisma.paymentType.create({
+                    data: {
+                        name: args.name
+                    },
+                });
+                return createdPaymentType;
+            }
+        },
+
+        updatePaymentType: {
+            type: PaymentType,
+            args: {
+                id: { type: GraphQLString },
+                name: { type: GraphQLString }
+            },
+            async resolve(parent, args) {
+                const updatedPaymentType = await prisma.paymentType.update({
+                    where: {
+                        id: args.id
+                    },
+                    data: {
+                        name: args.name
+                    },
+                });
+                return updatedPaymentType;
+            }
         }
     },
 });

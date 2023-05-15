@@ -68,6 +68,11 @@ model product_category {
   product   product[]
 }
 
+model paymentType {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+}
+
 model supplier {
   id              String            @id @default(auto()) @map("_id") @db.ObjectId
   name            String
